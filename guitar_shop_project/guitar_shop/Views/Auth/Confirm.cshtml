@@ -1,0 +1,14 @@
+@{ ViewData["Title"] = "Подтверждение"; }
+<div class="login-container" style="height:350px;">
+    <div class="login-block">
+        <div class="login-title">Подтверждение почты</div>
+        <form asp-action="Confirm" method="post">
+            <ul class="login-input-ul">
+                <input placeholder="Email" type="email" name="email" required>
+                <input placeholder="Код из письма" type="text" name="code" required pattern="[0-9]{6}" maxlength="6">
+            </ul>
+            @if (ViewBag.Error != null) { <div class="login-errors-list">@ViewBag.Error</div> }
+            <button type="submit" class="login-btn">Подтвердить</button>
+        </form>
+    </div>
+</div>

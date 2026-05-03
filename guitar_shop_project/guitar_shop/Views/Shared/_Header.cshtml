@@ -1,0 +1,59 @@
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+<nav class="navigator">
+    <a href="/" class="nav-title">Көrimdik</a>
+    <form asp-controller="Shop" asp-action="Index" method="get" class="nav-search">
+        <input name="search" class="nav-search-input" type="text" placeholder="Поиск гитар...">
+        <button type="submit" style="background:none;border:none;cursor:pointer;">
+            <img src="~/img/Vector 3.svg" class="nav-search-img" alt="search">
+        </button>
+    </form>
+    <div class="nav-kor-profile">
+        <div class="cart-wrapper" id="cartBtn">
+            <a href="@Url.Action("Index", "Cart")" class="nav-kor-img-link">
+                <img src="~/wwwroot/img/kor.svg" alt="Корзина" class="nav-kor-img">
+            </a>
+            <div class="cart-dropdown" id="cartDropdown">
+                <div class="cart-dropdown-content">
+                    @if (ViewData["CartPreview"] is List<guitar_shop.Models.CartItem> preview && preview.Count > 0)
+                    {
+                        <ul class="cart-preview-list">
+                            @foreach(var item in preview)
+                            {
+                                <li class="cart-preview-item">
+                                    <span>@item.Name x @item.Quantity</span>
+                                    <span>@(item.Price * item.Quantity)$</span>
+                                </li>
+                            }
+                        </ul>
+                        <a href="@Url.Action("Index", "Cart")" class="cart-menu-button-a">В КОРЗИНУ</a>
+                    }
+                    else
+                    {
+                        <p style="text-align:center; color:#888;">Корзина пуста</p>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="profile-wrapper">
+            @{
+                var user = Context.Session.GetString("User");
+                if(string.IsNullOrEmpty(user)) { <a href="@Url.Action("Index", "Login")">Войти</a> }
+                else { <span>@user <a href="@Url.Action("Logout", "Login")" style="font-size:12px; margin-left:5px;">(Выход)</a></span> }
+            }
+        </div>
+    </div>
+</nav>
+
+<script>
+    document.getElementById('cartBtn').addEventListener('click', function(e) {
+        if(!e.target.closest('.cart-dropdown')) {
+            document.getElementById('cartDropdown').classList.toggle('show');
+        }
+    });
+    document.addEventListener('click', function(e){
+        if(!document.getElementById('cartBtn').contains(e.target)){
+            document.getElementById('cartDropdown').classList.remove('show');
+        }
+    });
+</script>

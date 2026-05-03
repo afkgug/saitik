@@ -1,0 +1,38 @@
+[
+  {
+    "Id": 1,
+    "Name": "Telecaster Deluxe",
+    "Category": "Электрогитара",
+    "Color": "Черный",
+    "Description": "Легендарный звук. Идеально подходит для блюза и рока. Два хамбакера обеспечивают мощный и насыщенный тон.",
+    "Price": 550.00,
+    "Image": "/img/placeholder1.jpg"
+  },
+  {
+    "Id": 2,
+    "Name": "Stratocaster AmericanUltra II",
+    "Category": "Электрогитара",
+    "Color": "Белый",
+    "Description": "Классический винтажный звук 60-х. Три сингла для чистого и яркого звучания.",
+    "Price": 1200.00,
+    "Image": "../wwwroot/img/placeholder2.jpg"
+  },
+  {
+    "Id": 3,
+    "Name": "Acoustic Taylor",
+    "Category": "Акустическая",
+    "Color": "Натуральный",
+    "Description": "Мощный и яркий звук, идеальный выбор для начинающих. Верхняя дека из ели.",
+    "Price": 300.00,
+    "Image": "/img/placeholder3.jpg"
+  },
+  {
+    "Id": 4,
+    "Name": "Les Paul Standard",
+    "Category": "Электрогитара",
+    "Color": "Красный",
+    "Description": "Теплый, насыщенный звук с долгим сустейном. Отличный выбор для тяжелого рока и джаза.",
+    "Price": 2500.00,
+    "Image": "/img/placeholder4.jpg"
+  }
+]

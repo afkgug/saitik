@@ -1,0 +1,67 @@
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model List<guitar_shop.Models.CartItem>
+@{ Layout = null; var items = Model ?? new List<guitar_shop.Models.CartItem>(); decimal total = items.Sum(i => i.Price * i.Quantity); }
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Заказ</title>
+    <link rel="stylesheet" href="~/css/style.css">
+</head>
+<body>
+    <nav class="navigator">
+        <a href="/" class="nav-title">Kөrimdik</a>
+        <div class="nav-kor-profile"><a href="/Cart"><img src="~/img/kor.svg" alt="Корзина" class="nav-kor-img"></a></div>
+    </nav>
+
+    <div class="container-order">
+        <div>
+            <h1 class="order-title">ЗАКАЗ</h1>
+            @if (ViewBag.Success == true)
+            {
+                <div style="color:green; font-size:20px; margin:20px 0;">Заказ успешно оформлен!</div>
+                <a href="/" class="cart-menu-button-a" style="display:inline-block; width:auto;">На главную</a>
+            }
+            else
+            {
+                <form action="/Order" method="post">
+                    <div class="order-list-inputs">
+                        <div class="order-list-title">Контактная информация</div>
+                        <input type="text" placeholder="Имя" name="name" required>
+                        <input type="email" placeholder="Email" name="email" class="order-list-inputs-mail" required>
+                        <input type="text" placeholder="Адрес доставки" name="address" required>
+                        <div class="order-list-inputs-button" style="cursor:pointer;">
+                            <button type="submit" style="background:none;border:none;cursor:pointer;width:100%;text-align:center;font-size:16px;">ОФОРМИТЬ</button>
+                        </div>
+                    </div>
+                </form>
+            }
+        </div>
+
+        <div class="order-menu">
+            <div class="order-menu-title">ВАШ ЗАКАЗ</div>
+            <div class="order-menu-list">
+                @foreach(var item in items)
+                {
+                    <div class="order-menu-list-product">
+                        <div class="order-menu-list-product-info">
+                            <div class="order-menu-list-product-title">@item.Name</div>
+                            <div class="order-menu-list-product-text">@item.Quantity шт.</div>
+                        </div>
+                        <div class="order-menu-list-product-price">@(item.Price * item.Quantity)$</div>
+                    </div>
+                }
+            </div>
+            <div class="order-menu-line-alt"></div>
+            <div class="order-menu-all-price">
+                <span class="order-menu-all-price-title">ВСЕГО</span>
+                <span class="order-menu-all-price-price">@total$</span>
+            </div>
+        </div>
+    </div>
+    <button class="back-button" onclick="history.back()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg> Назад
+    </button>
+</body>
+</html>

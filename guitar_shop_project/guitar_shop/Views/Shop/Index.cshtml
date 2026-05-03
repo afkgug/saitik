@@ -1,0 +1,86 @@
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model List<guitar_shop.Models.Guitar>
+@{ Layout = null; var items = Model ?? new List<guitar_shop.Models.Guitar>(); }
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Магазин</title>
+    <link rel="stylesheet" href="~/css/style.css">
+</head>
+<body>
+    <nav class="navigator">
+        <a href="/" class="nav-title">Kөrimdik</a>
+        <form action="/Shop" method="get" class="nav-search">
+            <input name="search" class="nav-search-input" type="text" placeholder="Поиск...">
+            <button type="submit" style="background:none;border:none;cursor:pointer;padding:0;">
+                <svg class="nav-search-img" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </button>
+        </form>
+        <div class="nav-kor-profile">
+            <a href="/Cart"><img src="~/img/kor.svg" alt="Корзина" class="nav-kor-img"></a>
+            <a href="/Login"><img src="~/img/prof.svg" alt="Профиль" class="nav-kor-img"></a>
+        </div>
+    </nav>
+
+    <div class="container-catalog">
+        <aside class="catalog-filters">
+            <h3 class="catalog-filters-title">Фильтры</h3>
+            <form action="/Shop" method="get">
+                <div class="catalog-filters-category">
+                    <span>Категории</span>
+                    <select name="category" class="filter-select">
+                        <option value="">Все</option>
+                        <option value="Электрогитара">Электрогитара</option>
+                        <option value="Акустическая">Акустическая</option>
+                    </select>
+                </div>
+                <div class="catalog-filters-color">
+                    <span>Цвет</span>
+                    <select name="color" class="filter-select">
+                        <option value="">Все</option>
+                        <option value="Черный">Черный</option>
+                        <option value="Белый">Белый</option>
+                        <option value="Красный">Красный</option>
+                    </select>
+                </div>
+                <div class="catalog-filters-price">
+                    <span>Цена</span>
+                    <div class="price-slider-container">
+                        <input type="range" name="maxPrice" min="0" max="3000" value="3000" id="priceRange" oninput="document.getElementById('priceValue').innerText = this.value">
+                        <span id="priceValue">3000</span>$
+                    </div>
+                </div>
+                <button type="submit" class="filter-apply-btn">Применить</button>
+            </form>
+        </aside>
+
+        <main class="catalog-main">
+            <div class="catalog-main-header">
+                <h2 class="catalog-main-header-title">Гитары (@items.Count)</h2>
+            </div>
+            <div class="catalog-main-products-menu">
+                @foreach(var g in items)
+                {
+                    <a href="/Product?id=@g.Id" class="catalog-main-list-product">
+                        <div class="catalog-main-list-product-img">
+                            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                        </div>
+                        <div class="catalog-main-list-product-info">
+                            <div>
+                                <div class="catalog-main-menu-product-category">@g.Category</div>
+                                <div class="catalog-main-list-product-name">@g.Name</div>
+                            </div>
+                            <div class="catalog-main-list-product-price">@g.Price$</div>
+                        </div>
+                    </a>
+                }
+            </div>
+        </main>
+    </div>
+    <button class="back-button" onclick="history.back()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg> Назад
+    </button>
+</body>
+</html>
