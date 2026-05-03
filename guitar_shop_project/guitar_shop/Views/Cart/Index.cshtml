@@ -1,0 +1,74 @@
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model List<guitar_shop.Models.CartItem>
+@{ Layout = null; var items = Model ?? new List<guitar_shop.Models.CartItem>(); decimal total = items.Sum(i => i.Price * i.Quantity); }
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Корзина</title>
+    <link rel="stylesheet" href="~/css/style.css">
+</head>
+<body>
+    <nav class="navigator">
+        <a href="/" class="nav-title">Kөrimdik</a>
+        <div class="nav-kor-profile">
+            <a href="/Cart"><img src="~/img/kor.svg" alt="Корзина" class="nav-kor-img"></a>
+            <a href="/Login"><img src="~/img/prof.svg" alt="Профиль" class="nav-kor-img"></a>
+        </div>
+    </nav>
+
+    <div class="container-cart">
+        <div style="flex:1;">
+            <h1 class="cart-title">Корзина</h1>
+            @if(items.Count == 0) { <p>Корзина пуста</p> }
+            else {
+                <div class="cart-items-grid">
+                    @foreach(var item in items)
+                    {
+                        <div class="cart-item-card">
+                            <form action="/Cart/Remove" method="post" style="margin:0;">
+                                <input type="hidden" name="id" value="@item.Id">
+                                <button type="submit" class="cart-item-remove">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                                </button>
+                            </form>
+                            <div class="cart-item-img">
+                                <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                            </div>
+                            <div class="cart-item-info">
+                                <div>
+                                    <div class="cart-item-name">@item.Name</div>
+                                    <div class="cart-item-qty">Количество: @item.Quantity</div>
+                                </div>
+                                <div class="cart-item-price">@(item.Price * item.Quantity)$</div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+
+        <div class="cart-menu">
+            <div class="cart-menu-title" style="margin-bottom: 25px; font-size: 18px; text-align: center;">Общая стоимость</div>
+            <div class="cart-menu-list">
+                @foreach(var item in items)
+                {
+                    <div class="cart-menu-list-product">
+                        <span class="cart-menu-list-product-title">@item.Name x @item.Quantity</span>
+                        <span class="cart-menu-list-product-price">@(item.Price * item.Quantity)$</span>
+                    </div>
+                }
+            </div>
+            <div class="cart-menu-all-price">
+                <span class="cart-menu-all-price-title">ВСЕГО</span>
+                <span class="cart-menu-all-price-price">@total$</span>
+            </div>
+            <a href="/Order" class="cart-menu-button-a">ОФОРМИТЬ</a>
+        </div>
+    </div>
+    <button class="back-button" onclick="history.back()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg> Назад
+    </button>
+</body>
+</html>

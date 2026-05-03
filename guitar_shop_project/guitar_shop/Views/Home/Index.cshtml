@@ -1,0 +1,67 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kөrimdik - Магазин гитар</title>
+    <link rel="stylesheet" href="~/css/style.css">
+</head>
+<body>
+    <header class="head-main">
+        <div class="navigator">
+            <div class="nav-title">
+                <a href="/">Kөrimdik</a>
+            </div>
+
+            <form action="/Shop" method="get" class="nav-search">
+                <input name="search" type="text" placeholder="Поиск" class="nav-search-input">
+                <button type="submit" style="background:none;border:none;cursor:pointer;padding:0;">
+                    <img src="~/img/search.svg" alt="" class="nav-search-img">
+                </button>
+            </form>
+
+            <div class="nav-kor-profile">
+                <div class="nav-kor">
+                    <a href="/Cart"><img src="~/img/kor.svg" alt="" class="nav-kor-img"></a>
+                </div>
+
+                <div class="nav-profile">
+                    <a href="/Login"><img src="~/img/prof.svg" alt="" class="nav-kor-img"></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container-home">
+            <div class="main-title">
+                Гитары
+            </div>
+
+            <div class="main-cont">
+                <div class="main-cont-title-button">
+                    <div class="main-cont-title">
+                        ПОПУЛЯРНЫЕ <br>ГИТАРЫ
+                    </div>
+
+                    <button class="main-cont-button">
+                        <a href="/Shop" class="main-cont-button-a">
+                            В магазин
+                            <img src="~/img/strelka.svg" alt="" class="main-cont-button-strelka">
+                        </a>
+                    </button>
+                </div>
+                    
+                <div class="main-cont-guitars">
+                    <img src="~/img/guitar1.svg" alt="Гитара 1">
+                    <img src="~/img/guitar2.svg" alt="Гитара 2">
+                </div>
+            </div>
+        </div>    
+    </main>
+</body>
+</html>

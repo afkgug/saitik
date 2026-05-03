@@ -1,0 +1,44 @@
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model guitar_shop.Models.RegisterViewModel
+@{ Layout = null; }
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Зарегистрироваться</title>
+    <link rel="stylesheet" href="~/css/style.css">
+</head>
+<body class="back-color">
+    <div class="reg-container">
+        <div class="reg-block">
+            <h2 class="reg-title">Зарегистрироваться</h2>
+            <form action="/Auth/Register" method="post">
+                <ul class="input-ul">
+                    <input required id="FullName" type="text" placeholder="Ваше имя" name="FullName" value="@TempData["FullName"]">
+                    <input required id="Email" type="email" placeholder="Email" name="Email" value="@TempData["Email"]">
+                    <input required id="Password" type="password" placeholder="Пароль" name="Password">
+                    <input required id="ConfirmPassword" type="password" placeholder="Повторите пароль" name="ConfirmPassword">
+                    <input id="DeliveryAddress" type="text" placeholder="Адрес доставки (необязательно)" name="DeliveryAddress" value="@TempData["DeliveryAddress"]">
+                </ul>
+                @if (ViewBag.Error != null)
+                {
+                    <div class="errors-list" style="color:#ff4d4d;">
+                        <ul><li><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ff4d4d" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> @ViewBag.Error</li></ul>
+                    </div>
+                }
+                @if (ViewBag.Success != null)
+                {
+                    <div class="errors-list" style="color:#4CAF50;">@ViewBag.Success</div>
+                }
+                <button type="submit" class="reg">Зарегистрироваться</button>
+                <ul class="links">
+                    <li><button class="log"><a href="/Auth/Login">Войти</a></button></li>
+                    <li><button class="back"><a href="/">Вернуться на главную</a></button></li>
+                </ul>
+            </form>
+        </div>
+    </div>
+    <script src="~/js/site.js"></script>
+</body>
+</html>
